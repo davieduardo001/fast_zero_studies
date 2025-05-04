@@ -1,15 +1,16 @@
 docker-build:
-  # Use the official docker image.
-  image: docker:cli
-  stage: build
+  image: docker:latest
+
   services:
     - docker:dind
+
   variables:
+    DOCKER_TLS_CERTDIR: ""
     DOCKER_IMAGE_NAME: davieduardocosta001/fast_zero:latest
+
   before_script:
-    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
-  # All branches are tagged with $DOCKER_IMAGE_NAME (defaults to commit ref slug)
-  # Default branch is also tagged with `latest`
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD"
+
   script:
     - docker build -t "$DOCKER_IMAGE_NAME"  .
     - docker push "$DOCKER_IMAGE_NAME"
