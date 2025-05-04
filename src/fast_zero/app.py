@@ -16,7 +16,7 @@ PROJECT_ROOT = Path(__file__).parent
 app.mount(
     "/static",
     StaticFiles(directory=str(PROJECT_ROOT / "static")),
-    name="static"
+    name="static",
 )
 
 
