@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from pydantic import BaseModel
+from pydantic import BaseModel, EmailStr
 
 
 class Message(BaseModel):
@@ -13,3 +13,19 @@ class Html(BaseModel):
     @property
     def content(self) -> str:
         return self.file.read_text()
+
+
+class UserSchema(BaseModel):
+    name: str
+    email: EmailStr
+    password: str
+
+
+class UserDB(UserSchema):
+    id: int
+
+
+class UserPublicSchema(BaseModel):
+    id: int
+    name: str
+    email: EmailStr
