@@ -23,11 +23,23 @@ def test_create_user(client):
         },
     )
 
-    response.status_code = HTTPStatus.CREATED
-
-    # Validar UserPublic
+    assert response.status_code == HTTPStatus.CREATED
     assert response.json() == {
         "id": 1,
         "name": "John Doe",
         "email": "john.doe@example.com",
+    }
+
+
+def test_read_users(client):
+    # Get the users list
+    response = client.get("/users/")
+
+    assert response.status_code == HTTPStatus.OK
+    assert response.json() == {
+        "users": [{
+            "id": 1,
+            "name": "John Doe",
+            "email": "john.doe@example.com",
+        }]
     }

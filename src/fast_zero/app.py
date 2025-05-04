@@ -51,4 +51,13 @@ def create_user(user: UserSchema):
 
 @app.get("/users/", response_model=UserList)
 def read_users():
-    return UserList(users=database)
+    # Convert UserDB objects to UserPublicSchema
+    public_users = [
+        UserPublicSchema(
+            id=user.id,
+            name=user.name,
+            email=user.email
+        )
+        for user in database
+    ]
+    return UserList(users=public_users)
