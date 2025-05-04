@@ -29,3 +29,7 @@ class UserPublicSchema(BaseModel):
     id: int
     name: str
     email: EmailStr
+
+
+class UserList(BaseModel):
+    users: list[UserPublicSchema]

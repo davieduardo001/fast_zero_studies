@@ -8,6 +8,7 @@ from fastapi.staticfiles import StaticFiles
 from fast_zero.schemas import (
     Message,
     UserDB,
+    UserList,
     UserPublicSchema,
     UserSchema,
 )
@@ -46,3 +47,8 @@ def create_user(user: UserSchema):
     database.append(user_with_id)
 
     return user_with_id
+
+
+@app.get("/users/", response_model=UserList)
+def read_users():
+    return UserList(users=database)
