@@ -12,8 +12,8 @@ def test_read_root_deve_retornar_ok():
     assert response.status_code == HTTPStatus.OK  # Assert
 
 
-def test_read_batatinha_deve_retornar_batatinha():
+def test_read_batatinha_deve_retornar_uma_pagina_html_com_titulo_e_conteudo():
     client = TestClient(app)  # Arrange (Organizacao)
     response = client.get("/batatinha")  # Act (Acao)
     assert response.status_code == HTTPStatus.OK  # Assert
-    assert response.json() == {"message": "Batatinha"}  # Assert
+    assert "text/html" in response.headers["content-type"]  # Assert
